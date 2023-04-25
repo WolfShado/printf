@@ -1,80 +1,127 @@
-.\" Manpage for _printf.
-.\" Contact @H3c7o4 to correct errors or typos.
-.TH man 8 "17 October 2022" "1.0" "_printf man page"
+.\" _printf man page
+.\"
+.\"
+.\"
+.\"
+.\"
+.TH _PRINTF "May 20 2022" "0.1" "Library functions manual"
+
 .SH NAME
-_printf
+.SH ""
+
+.B _printf
+- custom version for printf function.
+
 .SH SYNOPSIS
-#include "main.h"
+.SH ""
+
+#include "mainn.h"
+
+int _printf(const char *[FORMAT], ...);
 
 .SH DESCRIPTION
-_printf produces output according to a format string. It will write output
-to standard out.
+.SH ""
 
-_printf function prototype:
+The printf function sends formatted output to stdout.
+A custom _printf() for learning purposes was developed by cohort  #6 students Udoka Christopher and Hope Akpabio as a project in ALX.
+_printf() function format string is a character string, beginning and ending in its initial shift state, if any.
+These arguments are placed using the percentage '%' operator
 
-int _printf(const char *format, ...)
+.SS Compilation
 
-.SS Return value
-Upon  successful  return,  _printf returns the number of characters
-printed (excluding the null byte used to end output to strings).
-If error occurs, _printf will return a negative value.
-
-.SS Format of the format string
-The format string is a character string.The format string is composed of:
-ordinary character (not%) which are copied unchanced to the output string and
-conversion specifications, each of which results in fetching zero or more
-subsequent arguments.  Each conversion  specification  is  introduced  by  the
-character  %, and ends with a conversion specifier.  In between there may be
-(in this order) zero or more flags, an optional minimum field width,
-an optional precision and an optional length modifier.
-
-"%%" formats do not consume an argument, it will just print a single "%".
-
-.SS The conversion specifiers
-       The character % is followed by the following specifiers:
-
-       c If  no  l modifier is present, the int argument is converted to an
-       unsigned char, and the resulting character is written.
-       s If no l modifier is present: The const char * argument is expected to
-       be a pointer to an array of character type (pointer  to a string).
-       Characters from the array are written up to (but not including) a
-       terminating null byte ('\0'); if a precision is specified, no more than
-       the number specified are written.  If a precision is given, no
-       null  byte  need  be  present;  if the precision is not specified, or is
-       greater than the size of the array, the array must contain a
-       terminating null byte.
-       i The int argument is converted to signed decimal notation.
-       d The int argument is converted to signed decimal notation.
-
-.SS The flag characters
-       The character % is followed by zero or more of the following flags:
-       #      The value should be converted to an "alternate form".
-       ' '    (a space) A blank should be left before a positive number
-       (or empty string) produced by a signed conversion.
-       +      A sign (+ or -) should always be placed before a number produced
-       by a signed conversion.  By default a  sign  is used only for negative
-       numbers.  A + overrides a space if both are used.
-
-.SH EXAMPLES
-Use _printf to print a string with variables of different types
-
+.P
+.RS
 #include "main.h"
 
-	  int main (void)
+$ gcc -Wall -Werror -Wextra -pedantic -Wno-format *.c
+$ gcc -Wall -Werror -Wextra -pedantic -g -Wno-format *.c (for gdb debbuging)
+.RE
 
-           {
+.SS Printing
+.RS
 
-                float dollars = 673.14, euros = 655.60;
-                char *CFA = "Central African CFA franc";
+int _printf(const char *[FORMAT], ...);
 
-                    _printf("Converting euro and dollar into %s :\n\n1euro = %f %s\n1dollar = %f %s\n", CFA, euros, CFA, dollars, CFA);
+FORMAT is the string that takes n specifier followed by a '%'
+symbol. i.e. "Hello this is %s from %d cohort". '...' is the variadic \
+(any type of variable).
 
-                                  return (0);
-  
-                                  }
-.SH SEE ALSO
-printf , scanf
-.SH BUGS
-No known bugs.
-.SH AUTHOR
-ITOK Steve Hector - Camilo Araque Caro
+.SS Example
+
+.RS
+
+.B Input
+.PP
+_printf("Hello this is %s from %d cohort\\n\\", 33);
+.PP
+.B Output
+.PP
+Hello this is %s from %d cohort
+.RE
+
+.SS Return Value
+
+Return value is a n number of characters except NULL
+
+.SH FLAG SPECIFIERS
+.SH ""
+
+custom and non-custom specifier modifiers
+
+.SH THE LENGTH MODIFIERS
+.SH ""
+
+Length modifiers.
+
+.SH THE CONVERSION SPECIFIERS
+.SH ""
+
+.RS
+Current arguments handled by conversion specifiers:
+
+.IT
+.B %
+- % symbol is set without argument and conversion specification has to be'%%'.
+
+.IT
+.B c
+- integer or char argument converted to unsigned char.
+
+.IT
+.B d, i
+- int argument is converted to signed decimal integer.
+
+.IT
+.B s
+- string argument. _printf handles s conversion specifier if the argument value
+ is not a pointer to a literal string. \
+
+.IT
+.B o, u, x, X
+- unsigned int argument converted to unsigned octal (o), unsigned decimal (u),
+unsigned hexidecimal notation (x) for lower case and (X) for upper case
+
+.IT
+.B b
+- The unsigned int argument is converted to binary.
+
+.IT
+.B p
+- The pointer is printed in hexidecimal format preceded by '0x'.
+
+.IT
+.B r, R
+- 'r' prints string in reverse. 'R' prints encrypted rot13.
+
+.IT
+.B S
+- ascii <32 & >127 has to appear in the argument string. converted to
+hexadecimal preceded by \x
+
+.RE
+
+.P
+
+.SH "AUTHORS"
+.SH ""
+Akpobomowei Akpos and Faith Amogu
